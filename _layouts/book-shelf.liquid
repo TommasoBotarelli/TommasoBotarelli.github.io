@@ -7,7 +7,7 @@ layout: page
   {% assign collection = site[page.collection] %}
   {% if collection and collection.size > 0 %}
     {% for item in collection reversed %}
-      {% assign current_year = item.date | date: '%Y' %}
+      {% assign current_year = item.finished | default: item.date | date: '%Y' %}
       {% if current_year != year %}
         {% unless forloop.first %}
           </ul>
@@ -19,7 +19,7 @@ layout: page
           {% assign year = current_year %}
       {% endif %}
 
-      <figure class="cover">
+      <figure class="cover" style="vertical-align: top; margin-bottom: 30px;"> 
         <a class="cover-link" href="{{ item.url | relative_url }}">
           {% if item.cover %}
             <img alt="{{ item.title }} cover" src="{{ item.cover | prepend: page.covers | relative_url }}" style="height:200px">
@@ -28,6 +28,7 @@ layout: page
           {% elsif item.isbn %}
             <img alt="{{ item.title }} cover" src="http://covers.openlibrary.org/b/isbn/{{ item.isbn }}-L.jpg?default=false" style="height:200px">
           {% endif %}
+          
           {% if item.status %}
             {% assign statuses = 'abandoned,finished,interested,paused,queued,reading,reread' | split: ',' %}
             {% assign status = item.status | downcase | strip %}
@@ -40,7 +41,35 @@ layout: page
             <figcaption class="uncategorized">UNCATEGORIZED</figcaption>
           {% endif %}
         </a>
-      </figure>
+
+        {% assign tags = item.tags | join: "" %}
+        {% assign categories = item.categories | join: "" %}
+        
+        {% if tags != "" or categories != "" %}
+        <div class="book-meta" style="text-align: center; margin-top: 8px; font-size: 0.8em; max-width: 150px; line-height: 1.4;">
+            
+            {% if categories != "" %}
+                {% for category in item.categories %}
+                <a href="{{ category | slugify | prepend: '/books/category/' | relative_url }}" style="color: var(--global-text-color); opacity: 0.7;">
+                    <i class="fa-solid fa-tag fa-xs"></i> {{ category }}
+                </a>
+                {% unless forloop.last %}&nbsp;{% endunless %}
+                {% endfor %}
+                {% if tags != "" %}<br>{% endif %}
+            {% endif %}
+
+            {% if tags != "" %}
+                {% for tag in item.tags %}
+                <a href="{{ tag | slugify | prepend: '/books/tag/' | relative_url }}" style="color: var(--global-text-color); opacity: 0.7;">
+                    <i class="fa-solid fa-hashtag fa-xs"></i> {{ tag }}
+                </a>
+                {% unless forloop.last %}&nbsp;{% endunless %}
+                {% endfor %}
+            {% endif %}
+            
+        </div>
+        {% endif %}
+        </figure>
       {% if forloop.last %}
         </ul>
       {% endif %}
