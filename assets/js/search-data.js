@@ -55,6 +55,11 @@ ninja.data = [{
           description: "",
           section: "Books",handler: () => {
               window.location.href = "/books/data_intensive/";
+            },},{id: "links-homelab-architecture",
+          title: 'Homelab Architecture',
+          description: "My homelab setup",
+          section: "Links",handler: () => {
+              window.location.href = "/links/homelab-architecture/";
             },},{
         id: 'social-email',
         title: 'email',
