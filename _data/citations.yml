@@ -1,11 +1,11 @@
 metadata:
-  last_updated: '2026-04-20'
+  last_updated: '2026-04-22'
 papers:
   uMG6qu0AAAAJ:u-x6o8ySG0sC:
-    citations: 0
+    citations: 1
     title: A Compositional Approach to Coordinated Software Rejuvenation of Component-Based Systems
     year: '2024'
   uMG6qu0AAAAJ:u5HHmVD_uO8C:
-    citations: 38
+    citations: 39
     title: Using Physics-Informed neural networks for solving Navier-Stokes equations in fluid dynamic complex scenarios
     year: '2025'
